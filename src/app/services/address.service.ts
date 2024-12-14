@@ -14,8 +14,8 @@ export class AddressService {
   addresses$ = new BehaviorSubject<Address[]>([]);
 
   init() {
-      console.log('skipping init');
-      return;
+      // console.log('skipping init');
+      // return;
     this.http
       .get<Address[]>(`${environment.apiUrl}/api/address`)
       .subscribe((addresses) => {
