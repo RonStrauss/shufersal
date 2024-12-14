@@ -1,0 +1,13 @@
+<form [formGroup]="form">
+    <div class="radio-group" *ngFor="let address of addresses$ | async">
+        <input type="radio" [id]="address.id" [value]="address" name="address"
+            [formControl]="form.controls.addressSelected" />
+        <label [for]="address.id">{{address | address}}</label>
+    </div>
+    <div class="radio-group new-address">
+        <input type="radio" id="new-address" name="address" value="new-address"
+            [formControl]="form.controls.addressSelected">
+        <label for="new-address">Add New Address</label>
+    </div>
+    <app-new-address *ngIf="shouldDisplayNewAddressComponent$ | async"></app-new-address>
+</form>
