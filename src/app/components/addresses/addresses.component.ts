@@ -4,8 +4,9 @@ import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { AddressPipe } from '../../pipes/address.pipe';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { NewAddressComponent } from '../new-address/new-address.component';
-import { map, startWith } from 'rxjs';
+import { filter, map, startWith, Subject, switchMap, takeUntil } from 'rxjs';
 import { Address } from '../../interfaces/address';
+import { RequestService } from '../../services/request.service';
 
 @Component({
   selector: 'app-addresses',
@@ -24,8 +25,15 @@ export class AddressesComponent implements OnInit {
   constructor() {}
 
   private address = inject(AddressService);
+  private request = inject(RequestService);
   private fb = inject(FormBuilder);
   addresses$ = this.address.getAddresses();
+
+  canInteractWithAddress$ = this.request.loadState$.pipe(
+    map((state) => state !== 'loading')
+  );
+
+  destroy$ = new Subject<void>();
 
   form = this.fb.group({
     addressSelected: [<Address | 'new-address' | null>null],
@@ -38,7 +46,16 @@ export class AddressesComponent implements OnInit {
     );
 
   ngOnInit(): void {
-    // this.form.controls.addressSelected.valueChanges.subscribe(console.log)
-    console.log('AddressesComponent initialized');
+    this.initiateAddressSelection();
+  }
+
+  initiateAddressSelection() {
+    this.form.controls.addressSelected.valueChanges
+      .pipe(
+        filter((input) => input !== 'new-address' && input !== null),
+        switchMap((address) => this.address.selectAddress(address)),
+        takeUntil(this.destroy$)
+      )
+      .subscribe({ next: (input) => {} });
   }
 }

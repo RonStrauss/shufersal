@@ -1,11 +1,80 @@
-import { Component } from '@angular/core';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import { AddressService } from '../../services/address.service';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { combineLatest, Subject, takeUntil } from 'rxjs';
+import { Address, AddressBase } from '../../interfaces/address';
 
 @Component({
   selector: 'app-new-address',
-  imports: [],
+  imports: [NgFor, AsyncPipe, ReactiveFormsModule, NgIf],
   templateUrl: './new-address.component.html',
-  styleUrl: './new-address.component.scss'
+  styleUrl: './new-address.component.scss',
 })
-export class NewAddressComponent {
+export class NewAddressComponent implements OnInit {
+  private readonly address = inject(AddressService);
+  private readonly fb = inject(FormBuilder);
 
+  constructor() {}
+
+  @Output() addressCreated = new EventEmitter<Address>();
+
+  form = this.fb.nonNullable.group({
+    addressLine1: ['', Validators.required],
+    addressLine2: [''],
+    city: ['', Validators.required],
+    state: ['', Validators.required],
+    zipCode: ['', Validators.required],
+    country: ['', Validators.required],
+  });
+
+  countries$ = this.address.getCountries();
+  states$ = this.address.getStates();
+
+  destroy$ = new Subject<void>();
+
+  ngOnInit(): void {
+    this.address.refreshCountries();
+    this.initiateFormSucsribers();
+  }
+
+  initiateFormSucsribers() {
+    this.form.controls.country.valueChanges.subscribe((country) => {
+      if (!country) return;
+      this.form.controls.state.reset();
+      this.form.controls.state.enable();
+      this.address.refreshStates(country);
+    });
+
+    combineLatest([this.address.countries$, this.address.states$])
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(([_, states]) => {
+        if (!states.length) {
+          this.form.controls.state.disable();
+        }
+      });
+  }
+
+  resetForm() {
+    this.form.reset();
+    this.address.clearStates();
+    this.form.controls.state.disable();
+  }
+
+  onSubmit() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      console.log(this.form);
+      return;
+    }
+
+    const address = this.address.createAddressBody(this.form.value);
+
+    this.address.createAddress(address).subscribe({
+      next: () => {
+        this.resetForm();
+        this.address.refreshAddresses()
+      },
+    });
+  }
 }

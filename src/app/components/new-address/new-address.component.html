@@ -1,36 +1,46 @@
-<form class="form-container">
-    <div class="form-row">
-      <div class="form-section">
-        <label for="first-name">
-          First Name
-        </label>
-        <input type="text" id="first-name">
-      </div>
-      <div class="form-section">
-        <label for="last-name">Last Name</label>
-        <input type="text" id="last-name">
-      </div>
+<form class="form-container" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="form-row">
+    <div class="form-section required">
+      <label for="first-name">Country</label>
+      <select name="country" id="country" formControlName="country">
+        <option *ngFor="let country of countries$ | async" [value]="country">
+          {{ country }}
+        </option>
+      </select>
     </div>
-    <div class="form-section">
-      <label for="street-address">Street Address</label>
-      <input type="text" id="street-address">
+  </div>
+  <div class="form-section required">
+    <label for="street-address1">Street Address 1</label>
+    <input type="text" id="street-address1" formControlName="addressLine1" />
+  </div>
+  <div class="form-section">
+    <label for="street-address2">Street Address 2</label>
+    <input type="text" id="street-address2" />
+  </div>
+  <div class="form-row">
+    <div class="form-section required">
+      <label for="city">City</label>
+      <input type="text" id="city" formControlName="city" />
     </div>
-    <div class="form-row">
-      <div class="form-section">
-        <label for="apt-number">Apt Number</label>
-        <input type="text" id="apt-number">
-      </div>
-      <div class="form-section">
+    <ng-container *ngIf="states$ | async as states">
+      <div class="form-section required" *ngIf="states.length">
         <label for="state">State</label>
-        <input type="text" id="state">
+        <select name="state" id="state" formControlName="state">
+          <option *ngFor="let state of states$ | async" [value]="state">
+            {{ state }}
+          </option>
+        </select>
       </div>
-      <div class="form-section">
-        <label for="zip">Zip</label>
-        <input type="text" id="zip">
-      </div>
+    </ng-container>
+    <div class="form-section required">
+      <label for="zipCode">Zip</label>
+      <input type="text" id="zipCode" formControlName="zipCode" />
     </div>
-    <div class="buttons">
-      <button type="button" class="btn cancel">reset</button>
-      <button type="submit" class="btn save">Save this Address</button>
-    </div>
-  </form>
+  </div>
+  <div class="buttons">
+    <button type="button" class="btn cancel" (click)="resetForm()">
+      reset
+    </button>
+    <button type="submit" class="btn save">Save this Address</button>
+  </div>
+</form>
