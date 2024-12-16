@@ -4,7 +4,15 @@ import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { AddressPipe } from '../../pipes/address.pipe';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { NewAddressComponent } from '../new-address/new-address.component';
-import { filter, map, startWith, Subject, switchMap, takeUntil } from 'rxjs';
+import {
+  filter,
+  map,
+  startWith,
+  Subject,
+  switchMap,
+  take,
+  takeUntil,
+} from 'rxjs';
 import { Address } from '../../interfaces/address';
 import { RequestService } from '../../services/request.service';
 
@@ -57,5 +65,13 @@ export class AddressesComponent implements OnInit {
         takeUntil(this.destroy$)
       )
       .subscribe({ next: (input) => {} });
+  }
+
+  changeAddressSelection(address: Address) {
+    this.addresses$.pipe(take(1)).subscribe((addresses) => {
+      const addressPointer = addresses.find((a) => a.id === address.id);
+      if (!addressPointer) return;
+      this.form.controls.addressSelected.setValue(addressPointer);
+    });
   }
 }

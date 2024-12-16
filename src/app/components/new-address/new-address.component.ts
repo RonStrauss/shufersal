@@ -72,9 +72,10 @@ export class NewAddressComponent implements OnInit {
     const address = this.address.createAddressBody(this.form.value);
 
     this.address.createAddress(address).subscribe({
-      next: () => {
+      next: newAddress => {
         this.resetForm();
         this.address.refreshAddresses();
+        this.addressCreated.emit(newAddress);
       },
     });
   }

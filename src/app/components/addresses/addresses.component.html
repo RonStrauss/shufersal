@@ -10,5 +10,5 @@
             [formControl]="form.controls.addressSelected">
         <label for="new-address">Add New Address</label>
     </div>
-    <app-new-address *ngIf="shouldDisplayNewAddressComponent$ | async"></app-new-address>
+    <app-new-address (addressCreated)="changeAddressSelection($event)" *ngIf="shouldDisplayNewAddressComponent$ | async"></app-new-address>
 </form>

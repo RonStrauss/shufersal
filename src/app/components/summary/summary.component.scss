@@ -13,7 +13,7 @@
     font-weight: var(--font-light);
     margin-block-end: 15px;
     font-size: var(--font-size-xlarge);
-    color: black;
+    color: var(--text-color);
   }
 
   & ul {
@@ -42,14 +42,14 @@
 
       & a {
         text-decoration: none;
-        color: black;
+        color: var(--text-color);
         font-weight: var(--font-light);
       }
     }
     &.total {
       font-weight: var(--font-light);
       font-size: var(--font-size-xlarge);
-      color: black;
+      color: var(--text-color);
     }
   }
 }
