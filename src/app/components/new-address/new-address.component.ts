@@ -4,10 +4,11 @@ import { AddressService } from '../../services/address.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { combineLatest, Subject, takeUntil } from 'rxjs';
 import { Address, AddressBase } from '../../interfaces/address';
+import { FormFieldComponent } from "../form-field/form-field.component";
 
 @Component({
   selector: 'app-new-address',
-  imports: [NgFor, AsyncPipe, ReactiveFormsModule, NgIf],
+  imports: [NgFor, AsyncPipe, ReactiveFormsModule, NgIf, FormFieldComponent],
   templateUrl: './new-address.component.html',
   styleUrl: './new-address.component.scss',
 })
@@ -46,7 +47,7 @@ export class NewAddressComponent implements OnInit {
       this.address.refreshStates(country);
     });
 
-    combineLatest([this.address.countries$, this.address.states$])
+    combineLatest([this.address.getCountries(), this.address.getStates()])
       .pipe(takeUntil(this.destroy$))
       .subscribe(([_, states]) => {
         if (!states.length) {
@@ -73,7 +74,7 @@ export class NewAddressComponent implements OnInit {
     this.address.createAddress(address).subscribe({
       next: () => {
         this.resetForm();
-        this.address.refreshAddresses()
+        this.address.refreshAddresses();
       },
     });
   }

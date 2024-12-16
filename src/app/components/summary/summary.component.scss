@@ -1,60 +1,75 @@
-.order-summary {
-    background: #f4f4f4;
-    border-radius: 8px;
-    padding: 25px;
-    gap: 20px;
-    flex: 1;
-    display: grid;
-    font-size: 18px;
+:host {
+  background: #f4f4f4;
+  border-radius: 8px;
+  padding: 25px;
+  gap: 20px;
+  flex: 1;
+  display: grid;
+  font-size: 18px;
+  font-weight: var(--font-light);
+  color: var(--summary-text-color);
+
+  & h4 {
+    font-weight: var(--font-light);
+    margin-block-end: 15px;
+    font-size: var(--font-size-xlarge);
+    color: black;
+  }
+
+  & ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    & li {
+      display: flex;
+      justify-content: space-between;
+      margin-block-end: 12px;
+      font-size: var(--font-size-medium);
+      font-weight: var(--font-light);
+    }
+  }
+
+  & p {
+    display: flex;
+    justify-content: space-between;
+    margin-block-end: 10px;
+    font-size: var(--font-size-medium);
     font-weight: var(--font-light);
 
-    & h4 {
-        font-weight: 600;
-        margin-bottom: 15px;
-        font-size: 18px;
+    &.legal {
+      display: block;
+
+      & a {
+        text-decoration: none;
+        color: black;
+        font-weight: var(--font-light);
+      }
     }
-
-    & p {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 10px;
-
-        &.legal {
-            display: block;
-            color: var(--legal-text-color);
-
-            & a {
-                text-decoration: none;
-                color: black;
-                font-weight: var(--font-light);
-            }
-
-        }
+    &.total {
+      font-weight: var(--font-light);
+      font-size: var(--font-size-xlarge);
+      color: black;
     }
+  }
 }
 
 .divider {
-    border-top: 1px solid #ddd;
-    margin: 10px 0;
-}
-
-.total {
-    font-weight: var(--font-regular);
-    font-size: 25px;
+  border-top: 1px solid #ddd;
+  margin: 10px 0;
 }
 
 .place-order {
-    display: block;
-    margin-top: 20px;
-    background-color: var(--button-primary-color);
-    color: white;
-    border: none;
-    padding: 12px;
-    text-align: center;
-    border-radius: 6px;
-    font-weight: var(--font-light);
-    cursor: pointer;
-    min-height: 67px;
-    font-size: var(--font-larger);
-    font-family: var(--font-family);
+  display: block;
+  margin-top: 20px;
+  background-color: var(--button-primary-color);
+  color: white;
+  border: none;
+  padding: 12px;
+  text-align: center;
+  border-radius: 6px;
+  font-weight: var(--font-light);
+  cursor: pointer;
+  min-height: 67px;
+  font-size: var(--font-size-larger);
 }

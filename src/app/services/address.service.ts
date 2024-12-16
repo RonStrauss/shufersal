@@ -10,12 +10,12 @@ import { RequestService } from './request.service';
   providedIn: 'root',
 })
 export class AddressService {
-  private request = inject(RequestService);
+  private readonly request = inject(RequestService);
   constructor() {}
 
-  addresses$ = new BehaviorSubject<Address[]>([]);
-  countries$ = new BehaviorSubject<string[]>([]);
-  states$ = new BehaviorSubject<string[]>([]);
+  private readonly addresses$ = new BehaviorSubject<Address[]>([]);
+  private readonly countries$ = new BehaviorSubject<string[]>([]);
+  private readonly states$ = new BehaviorSubject<string[]>([]);
 
   init() {
     this.refreshAddresses();

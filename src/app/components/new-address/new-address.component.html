@@ -9,33 +9,32 @@
       </select>
     </div>
   </div>
-  <div class="form-section required">
-    <label for="street-address1">Street Address 1</label>
-    <input type="text" id="street-address1" formControlName="addressLine1" />
-  </div>
-  <div class="form-section">
-    <label for="street-address2">Street Address 2</label>
-    <input type="text" id="street-address2" />
-  </div>
+  <app-form-field
+    label="Street Address 1"
+    [control]="form.controls.addressLine1"
+  >
+  </app-form-field>
+
+  <app-form-field
+    label="Street Address 2"
+    [control]="form.controls.addressLine2"
+  >
+  </app-form-field>
   <div class="form-row">
-    <div class="form-section required">
-      <label for="city">City</label>
-      <input type="text" id="city" formControlName="city" />
-    </div>
+    <app-form-field label="City" [control]="form.controls.city">
+    </app-form-field>
     <ng-container *ngIf="states$ | async as states">
       <div class="form-section required" *ngIf="states.length">
         <label for="state">State</label>
         <select name="state" id="state" formControlName="state">
-          <option *ngFor="let state of states$ | async" [value]="state">
+          <option *ngFor="let state of states" [value]="state">
             {{ state }}
           </option>
         </select>
       </div>
     </ng-container>
-    <div class="form-section required">
-      <label for="zipCode">Zip</label>
-      <input type="text" id="zipCode" formControlName="zipCode" />
-    </div>
+    <app-form-field label="Zip" [control]="form.controls.zipCode">
+    </app-form-field>
   </div>
   <div class="buttons">
     <button type="button" class="btn cancel" (click)="resetForm()">
