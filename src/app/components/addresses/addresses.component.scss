@@ -18,14 +18,40 @@ form {
 .radio-group {
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: space-between;
   margin-bottom: 20px;
-  font-weight: 500;
+  font-weight: var(--font-medium);
+
+  & .left {
+    display: flex;
+    gap: 1rem;
+  }
 
   & input[type="radio"] {
     &:checked {
       border: 10px solid white;
       background: var(--primary-color);
+    }
+  }
+}
+
+.btn {
+  text-align: center;
+  border-radius: 6px;
+  font-weight: var(--font-light);
+  cursor: pointer;
+  font-size: var(--font-size-larger);
+  transition: 0.1s linear;
+  border: none;
+
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  &.delete {
+    background-color: var(--button-delete-bg);
+    color: var(--button-delete-color);
+
+    &:hover {
+      background-color: var(--button-delete-hover-bg);
     }
   }
 }

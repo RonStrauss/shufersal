@@ -4,6 +4,7 @@ import {
   Component,
   EventEmitter,
   inject,
+  OnDestroy,
   OnInit,
   Output,
 } from '@angular/core';
@@ -20,7 +21,7 @@ import { FormFieldComponent } from '../form-field/form-field.component';
   styleUrl: './new-address.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NewAddressComponent implements OnInit {
+export class NewAddressComponent implements OnInit, OnDestroy {
   private readonly address = inject(AddressService);
   private readonly fb = inject(FormBuilder);
 
@@ -47,6 +48,10 @@ export class NewAddressComponent implements OnInit {
     this.initiateFormSucsribers();
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
   initiateFormSucsribers() {
     this.form.controls.country.valueChanges.subscribe((country) => {
       if (!country) return;

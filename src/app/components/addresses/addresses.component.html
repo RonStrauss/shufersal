@@ -1,14 +1,35 @@
 <h2>Shipping Address</h2>
 <form [formGroup]="form">
-    <div class="radio-group" *ngFor="let address of addresses$ | async">
-        <input type="radio" [id]="address.id" [value]="address" name="address"
-            [formControl]="form.controls.addressSelected" />
-        <label [for]="address.id">{{address | address}}</label>
+  <div class="radio-group" *ngFor="let address of addresses$ | async">
+    <div class="left">
+      <input
+        type="radio"
+        [id]="address.id"
+        [value]="address"
+        name="address"
+        [formControl]="form.controls.addressSelected"
+      />
+      <label [for]="address.id">{{ address | address }}</label>
     </div>
-    <div class="radio-group new-address">
-        <input type="radio" id="new-address" name="address" value="new-address"
-            [formControl]="form.controls.addressSelected">
-        <label for="new-address">Add New Address</label>
+    <div class="right">
+      <button class="btn delete" (click)="deleteAddress(address)">x</button>
     </div>
-    <app-new-address (addressCreated)="changeAddressSelection($event)" *ngIf="shouldDisplayNewAddressComponent$ | async"></app-new-address>
+  </div>
+  <div class="radio-group new-address">
+    <div class="left">
+      <input
+        type="radio"
+        id="new-address"
+        name="address"
+        value="new-address"
+        [formControl]="form.controls.addressSelected"
+      />
+      <label for="new-address">Add New Address</label>
+    </div>
+    <div class="right"></div>
+  </div>
+  <app-new-address
+    (addressCreated)="changeAddressSelection($event)"
+    *ngIf="shouldDisplayNewAddressComponent$ | async"
+  ></app-new-address>
 </form>

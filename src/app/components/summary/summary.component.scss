@@ -72,4 +72,9 @@
   cursor: pointer;
   min-height: 67px;
   font-size: var(--font-size-larger);
+  transition: all 0.1s linear;
+
+  &:hover {
+    background-color: var(--button-primary-hover-color);
+  }
 }

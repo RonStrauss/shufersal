@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { AddressService } from '../../services/address.service';
@@ -35,7 +36,7 @@ import { RequestService } from '../../services/request.service';
   styleUrl: './addresses.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddressesComponent implements OnInit {
+export class AddressesComponent implements OnInit, OnDestroy {
   constructor() {}
 
   private address = inject(AddressService);
@@ -63,6 +64,11 @@ export class AddressesComponent implements OnInit {
     this.initiateAddressSelection();
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   initiateAddressSelection() {
     this.form.controls.addressSelected.valueChanges
       .pipe(
@@ -79,5 +85,9 @@ export class AddressesComponent implements OnInit {
       if (!addressPointer) return;
       this.form.controls.addressSelected.setValue(addressPointer);
     });
+  }
+
+  deleteAddress(address: Address) {
+    console.log('clicked delete');
   }
 }
