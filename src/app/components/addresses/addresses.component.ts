@@ -1,4 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { AddressService } from '../../services/address.service';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { AddressPipe } from '../../pipes/address.pipe';
@@ -28,6 +33,7 @@ import { RequestService } from '../../services/request.service';
   ],
   templateUrl: './addresses.component.html',
   styleUrl: './addresses.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddressesComponent implements OnInit {
   constructor() {}

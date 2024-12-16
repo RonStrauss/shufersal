@@ -1,23 +1,23 @@
-:host {
-	font-size: 18px;
-	font-weight: var(--font-light);
-	display: block;
-	margin-bottom: 15px;
-	flex:1;
+.form-field {
+  font-size: 18px;
+  font-weight: var(--font-light);
+  display: block;
+  margin-bottom: 15px;
+  flex: 1;
 
-	& input[type="text"],
-	& input[type="number"],
-	& select {
-	  width: 100%;
-	  padding: 10px;
-	  border: 1px solid #ddd;
-	  border-radius: 8px;
-	  font-size: var(--font-size-large);
-	  min-height: 67px;
-	}
+  & input[type="text"],
+  & input[type="number"],
+  & select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: var(--font-size-large);
+    min-height: 67px;
+  }
 
-	&.required label::after {
-	  content: " *";
-	  color: red;
-	}
- }
+  &.required label::after {
+    content: " *";
+    color: red;
+  }
+}

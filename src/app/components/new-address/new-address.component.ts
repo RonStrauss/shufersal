@@ -1,16 +1,24 @@
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
-import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { AddressService } from '../../services/address.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { combineLatest, Subject, takeUntil } from 'rxjs';
-import { Address, AddressBase } from '../../interfaces/address';
-import { FormFieldComponent } from "../form-field/form-field.component";
+import { Address } from '../../interfaces/address';
+import { FormFieldComponent } from '../form-field/form-field.component';
 
 @Component({
   selector: 'app-new-address',
   imports: [NgFor, AsyncPipe, ReactiveFormsModule, NgIf, FormFieldComponent],
   templateUrl: './new-address.component.html',
   styleUrl: './new-address.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NewAddressComponent implements OnInit {
   private readonly address = inject(AddressService);
@@ -72,11 +80,13 @@ export class NewAddressComponent implements OnInit {
     const address = this.address.createAddressBody(this.form.value);
 
     this.address.createAddress(address).subscribe({
-      next: newAddress => {
+      next: (newAddress) => {
         this.resetForm();
         this.address.refreshAddresses();
         this.addressCreated.emit(newAddress);
       },
     });
   }
+
+  showDialog() {}
 }

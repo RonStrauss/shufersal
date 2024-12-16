@@ -86,4 +86,8 @@ export class AddressService {
       saved: true,
     };
   }
+
+  async handleDeleteAddress(address: Address) {
+    // const confirmation = await 
+  }
 }

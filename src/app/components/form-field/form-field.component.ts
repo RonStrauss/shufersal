@@ -1,17 +1,21 @@
+import { AsyncPipe, NgClass, NgSwitch, NgSwitchCase } from '@angular/common';
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   HostBinding,
   Input,
   OnInit,
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-form-field',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgSwitch, NgSwitchCase, NgClass, AsyncPipe],
   templateUrl: './form-field.component.html',
   styleUrl: './form-field.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormFieldComponent implements OnInit {
   @Input({ required: true }) label!: string;
@@ -19,19 +23,16 @@ export class FormFieldComponent implements OnInit {
   @Input() type: 'text' | 'select' | 'textarea' = 'text';
   @Input() isRequired?: boolean;
 
-  @HostBinding('class') class = 'form-field';
-
   htmlFor = this.label;
+
+  isRequired$ = new BehaviorSubject<boolean | undefined>(this.isRequired);
 
   ngOnInit(): void {
     if (
       this.isRequired === undefined &&
       this.control.hasValidator(Validators.required)
     ) {
-      this.isRequired = true;
-    }
-    if (this.isRequired) {
-      this.class += ' required';
+      this.isRequired$.next(true);
     }
   }
 }
