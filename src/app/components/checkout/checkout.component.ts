@@ -15,7 +15,7 @@ import { ProgressTrackerComponent } from '../progress-tracker/progress-tracker.c
   imports: [
     AddressesComponent,
     SummaryComponent,
-    PaymentComponent,
+    // PaymentComponent,
     ProgressTrackerComponent,
   ],
   templateUrl: './checkout.component.html',

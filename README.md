@@ -16,6 +16,8 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 Shufersal is a web application designed mimic a checkout page for an e-commerce store.Currently, it provides a user-friendly interface for adding, editing, and deleting addresses.
 
+![App Screenshot](./assets/screenshot.jpg)
+
 ## Features
 
 - Add new addresses
