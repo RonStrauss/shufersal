@@ -26,7 +26,7 @@ Shufersal is a web application designed mimic a checkout page for an e-commerce 
 
 ## Installation
 
-To install and run this project locally, follow these steps:
+To install and run this project locally, follow these steps (the environment variables are already included in the project):
 
 1. Clone the repository:
 
@@ -41,11 +41,11 @@ To install and run this project locally, follow these steps:
    npm run init
    ```
 
-   This will install all dependecies, and open your default browser on `http://localhost:4200`.
+   This will install all dependecies, and open your default browser on [http://localhost:4200](http://localhost:4200).
 
 ## Key concepts
 
-The styling was meant to closely resemble the following figma page: `https://www.figma.com/community/file/1277564093615415741/checkout-page`.
+The styling was meant to closely resemble the following [Figma Page](https://www.figma.com/community/file/1277564093615415741/checkout-page).
 There have been slight adjustments, so WCAG AAA standards could be adhered. Also, an address list is not in the design, so i took creative liberty with it.
 Chrome's CSS Overview greatly helped with the a11y considerations.
 
