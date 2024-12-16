@@ -5,6 +5,7 @@
   font-weight: var(--font-light);
   display: block;
   margin-bottom: 15px;
+  position: relative;
 
   & input[type="text"],
   & input[type="number"],
@@ -15,6 +16,14 @@
     border-radius: 8px;
     font-size: var(--font-large);
     min-height: 67px;
+  }
+
+  & span.error{
+    color: red;
+    font-size: var(--font-size-small);
+    position: absolute;
+    left: 0;
+    bottom: -20px;
   }
 
   &.required label::after {

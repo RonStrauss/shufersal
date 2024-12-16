@@ -2,58 +2,62 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.1.
 
-## Development server
+## Table of Contents
 
-To start a local development server, run:
+- [Shufersal](#shufersal)
+	- [Table of Contents](#table-of-contents)
+	- [Introduction](#introduction)
+	- [Features](#features)
+	- [Installation](#installation)
+	- [Key concepts](#key-concepts)
+	- [License](#license)
 
-```bash
-ng serve
-```
+## Introduction
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Shufersal is a web application designed mimic a checkout page for an e-commerce store.Currently, it provides a user-friendly interface for adding, editing, and deleting addresses.
 
-## Code scaffolding
+## Features
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- Add new addresses
+- Edit existing addresses
+- Delete addresses
+- Form validation
+- Responsive design
 
-```bash
-ng generate component component-name
-```
+## Installation
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+To install and run this project locally, follow these steps:
 
-```bash
-ng generate --help
-```
+1. Clone the repository:
 
-## Building
+   ```sh
+   git clone https://github.com/your-username/shufersal.git
+   cd shufersal
+   ```
 
-To build the project run:
+2. Then run the `init` script:
 
-```bash
-ng build
-```
+   ```sh
+   npm run init
+   ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+   This will install all dependecies, and open your default browser on `http://localhost:4200`.
 
-## Running unit tests
+## Key concepts
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+The styling was meant to closely resemble the following figma page: `https://www.figma.com/community/file/1277564093615415741/checkout-page`.
+There have been slight adjustments, so WCAG AAA standards could be adhered. Also, an address list is not in the design, so i took creative liberty with it.
+Chrome's CSS Overview greatly helped with the a11y considerations.
 
-```bash
-ng test
-```
+There were many more features I would have wished i could add - however, due to time constraints, I was unable to.
+Some of these are:
 
-## Running end-to-end tests
+1. Loading States, Errors - Currently, the implementation relies on constant 200/201 responses and user connection.
+   However, in the real world - we know that's not the case for all of the time, and we should prepare for all responses.
+2. Language Selection - Change between english and hebrew, and use more modern css properties such as `margin-block-start`, etc..
+   As to allow for reuse of existing styling, while marking as RTL when needed.
+3. Implementing a NGRX Store - Managing state through ngrx would greatly benefit the app, and the communication between the services and components.
 
-For end-to-end (e2e) testing, run:
+## License
 
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+This project is licensed under the MIT License. See the LICENSE file for more details.

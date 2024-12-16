@@ -87,7 +87,9 @@ export class AddressService {
     };
   }
 
-  async handleDeleteAddress(address: Address) {
-    // const confirmation = await 
+  handleDeleteAddress(address: Address) {
+    this.request.delete(`address/${address.id}`).subscribe(() => {
+      this.refreshAddresses();
+    });
   }
 }

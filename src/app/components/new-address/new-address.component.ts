@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { AddressService } from '../../services/address.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { combineLatest, Subject, takeUntil } from 'rxjs';
+import { combineLatest, map, Subject, takeUntil } from 'rxjs';
 import { Address } from '../../interfaces/address';
 import { FormFieldComponent } from '../form-field/form-field.component';
 
@@ -40,6 +40,27 @@ export class NewAddressComponent implements OnInit, OnDestroy {
 
   countries$ = this.address.getCountries();
   states$ = this.address.getStates();
+
+  formSubmitted$ = new Subject<void>();
+
+  shouldDisplayStateControlError$ = combineLatest([
+    this.formSubmitted$,
+    this.form.statusChanges,
+  ]).pipe(
+    map(
+      () => this.form.controls.state.invalid && this.form.controls.state.touched
+    )
+  );
+
+  shouldDisplayCountryControlError$ = combineLatest([
+    this.formSubmitted$,
+    this.form.statusChanges,
+  ]).pipe(
+    map(
+      () =>
+        this.form.controls.country.invalid && this.form.controls.country.touched
+    )
+  );
 
   destroy$ = new Subject<void>();
 
@@ -78,6 +99,7 @@ export class NewAddressComponent implements OnInit, OnDestroy {
   onSubmit() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
+      this.formSubmitted$.next();
       console.log(this.form);
       return;
     }

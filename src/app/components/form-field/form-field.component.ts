@@ -12,7 +12,7 @@ import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-form-field',
-  imports: [ReactiveFormsModule, NgSwitch, NgSwitchCase, NgClass, AsyncPipe],
+  imports: [ReactiveFormsModule, NgClass, AsyncPipe],
   templateUrl: './form-field.component.html',
   styleUrl: './form-field.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -20,7 +20,7 @@ import { BehaviorSubject } from 'rxjs';
 export class FormFieldComponent implements OnInit {
   @Input({ required: true }) label!: string;
   @Input({ required: true }) control!: FormControl;
-  @Input() type: 'text' | 'select' | 'textarea' = 'text';
+  @Input() type: 'text' = 'text';
   @Input() isRequired?: boolean;
 
   htmlFor = this.label;

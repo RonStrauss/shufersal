@@ -1,12 +1,16 @@
 <form class="form-container" [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="form-row">
     <div class="form-section required">
+      @let displayError = shouldDisplayCountryControlError$ | async;
       <label for="first-name">Country</label>
       <select name="country" id="country" formControlName="country">
         <option *ngFor="let country of countries$ | async" [value]="country">
           {{ country }}
         </option>
       </select>
+      @if (displayError) {
+      <span class="error">Required Field</span>
+      }
     </div>
   </div>
   <app-form-field
@@ -25,12 +29,16 @@
     </app-form-field>
     <ng-container *ngIf="states$ | async as states">
       <div class="form-section required" *ngIf="states.length">
+        @let displayError = shouldDisplayStateControlError$ | async;
         <label for="state">State</label>
         <select name="state" id="state" formControlName="state">
           <option *ngFor="let state of states" [value]="state">
             {{ state }}
           </option>
         </select>
+        @if (displayError) {
+        <span class="error">Required Field</span>
+        }
       </div>
     </ng-container>
     <app-form-field label="Zip" [control]="form.controls.zipCode">

@@ -88,6 +88,6 @@ export class AddressesComponent implements OnInit, OnDestroy {
   }
 
   deleteAddress(address: Address) {
-    console.log('clicked delete');
+    this.address.handleDeleteAddress(address);
   }
 }

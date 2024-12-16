@@ -1,9 +1,13 @@
+:host{
+	flex:1;
+}
+
 .form-field {
   font-size: 18px;
   font-weight: var(--font-light);
   display: block;
+  position: relative;
   margin-bottom: 15px;
-  flex: 1;
 
   & input[type="text"],
   & input[type="number"],
@@ -19,5 +23,13 @@
   &.required label::after {
     content: " *";
     color: red;
+  }
+
+  & .error {
+    color: red;
+	 font-size: var(--font-size-small);
+	 position: absolute;
+	 left:0;
+	 bottom: -20px;
   }
 }

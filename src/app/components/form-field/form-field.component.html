@@ -1,14 +1,7 @@
-<ng-container [ngSwitch]="type">
-  <div
-    class="form-field"
-    [ngClass]="{ required: isRequired$ | async }"
-    *ngSwitchCase="'text'"
-  >
-    <label [htmlFor]="htmlFor">{{ label }}</label>
-    <input [type]="type" [id]="htmlFor" [formControl]="control" />
-  </div>
-  <div class="form-field" *ngSwitchCase="'select'">
-    <label [htmlFor]="htmlFor">{{ label }}</label>
-    <input [type]="type" [id]="htmlFor" [formControl]="control" />
-  </div>
-</ng-container>
+<div class="form-field" [ngClass]="{ required: isRequired$ | async }">
+  <label [htmlFor]="htmlFor">{{ label }}</label>
+  <input [type]="type" [id]="htmlFor" [formControl]="control" />
+  @if (control.errors && control.errors['required'] && control.touched) {
+  <span class="error">Required Field</span>
+  }
+</div>
